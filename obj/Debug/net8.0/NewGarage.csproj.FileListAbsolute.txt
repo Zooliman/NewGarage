@@ -12,3 +12,4 @@
 /Users/bar.az/Library/Mobile Documents/com~apple~CloudDocs/IDC📚/Year C/Semester B/C#/Homeworks/DN_IDC_2024B_Ex03/NewGarage/obj/Debug/net8.0/NewGarage.pdb
 /Users/bar.az/Library/Mobile Documents/com~apple~CloudDocs/IDC📚/Year C/Semester B/C#/Homeworks/DN_IDC_2024B_Ex03/NewGarage/obj/Debug/net8.0/NewGarage.genruntimeconfig.cache
 /Users/bar.az/Library/Mobile Documents/com~apple~CloudDocs/IDC📚/Year C/Semester B/C#/Homeworks/DN_IDC_2024B_Ex03/NewGarage/obj/Debug/net8.0/ref/NewGarage.dll
+/Users/bar.az/Library/Mobile Documents/com~apple~CloudDocs/IDC📚/Year C/Semester B/C#/Homeworks/DN_IDC_2024B_Ex03/NewGarage/obj/Debug/net8.0/NewGarage.sourcelink.json

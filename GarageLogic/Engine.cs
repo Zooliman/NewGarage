@@ -1,19 +1,19 @@
 public class Engine
-{
-    public float MaxEnergy { get; set; }
-    public float CurrentEnergy
     {
-        get { return CurrentEnergy; }
-        set
+        public float MaxEnergy { get; set; }
+        public float CurrentEnergy
         {
-            if (value <= MaxEnergy)
+            get { return CurrentEnergy; }
+            set
             {
-                CurrentEnergy = value;
-            }
-            else
-            {
-                throw new ValueOutOfRangeException(0, MaxEnergy);
+                if (value <= MaxEnergy)
+                {
+                    CurrentEnergy = value;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, MaxEnergy);
+                }
             }
         }
     }
-}

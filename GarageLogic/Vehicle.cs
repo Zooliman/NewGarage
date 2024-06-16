@@ -6,15 +6,12 @@ public abstract class Vehicle
     public Wheel[] Wheels { get; set; }
     public string OwnerName { get; set; }
     public string OwnerPhoneNumber { get; set; }
-    public eVehicleStatus VehicleStatus { get; set; }
+    public Enums.eVehicleStatus VehicleStatus { get; set; }
     public Engine VehicleEngine { get; set; }
-    public eVehicleType VehicleType { get; set; }
-
-    
+    public Enums.eVehicleType VehicleType { get; set; }
 
     public Vehicle(int i_NumOfWheels, float i_MaxAirPressure)
     {
-        VehicleStatus = eVehicleStatus.InFix;
         Wheels = new Wheel[i_NumOfWheels];
         for (int i = 0; i < i_NumOfWheels; i++)
         {
@@ -30,38 +27,49 @@ public abstract class Vehicle
         }
     }
 
+    public void Charge(float i_Amount, Enums.eGasType i_GasType)
+    {
+        if (VehicleEngine is GasEngine gasEngine)
+        {
+            gasEngine.Fuel(i_Amount, i_GasType);
+        }
+        else
+        {
+            throw new ArgumentException("Invalid engine type");
+        }
+
+    }
+
+    public void Charge(float i_Amount)
+    {
+        if (VehicleEngine is ElectricEngine electricEngine)
+        {
+            electricEngine.ChargeBattery(i_Amount);
+        }
+        else
+        {
+            throw new ArgumentException("Invalid engine type");
+        }
+    }
+        
+
     // Equals
     public override bool Equals(object obj)
     {
         bool isEqual = false;
-        Vehicle vehicle = obj as Vehicle;
-        if (vehicle != null)
+        if (obj is Vehicle vehicle)
         {
-            isEqual = LicensePlateNumber == vehicle.LicensePlateNumber;
+            isEqual = LicensePlateNumber.Equals(vehicle.LicensePlateNumber);
         }
 
         return isEqual;
     }
 
-    public enum eVehicleStatus
+    // ToString
+    public override string ToString()
     {
-        InFix,
-        Fixed,
-        Paid
-    }
-
-    public enum eEngineType
-    {
-        Gas,
-        Electric
-    }
-
-    public enum eVehicleType
-    {
-        GasCar,
-        ElectricCar,
-        GasMotorcycle,
-        ElectricMotorcycle,
-        Truck
+        return string.Format(
+            "Model Name: {0}\nLicense Plate Number: {1}\nEnergy Left Precentage: {2}\nOwner Name: {3}\nOwner Phone Number: {4}\nVehicle Status: {5}\nVehicle Engine: {6}\nVehicle Type: {7}",
+            ModelName, LicensePlateNumber, EnergyLeftPrecentage, OwnerName, OwnerPhoneNumber, VehicleStatus, VehicleEngine, VehicleType);
     }
 }
