@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/bar.az/Library/Mobile Documents/com~apple~CloudDocs/IDC📚/Year C/Semester B/C#/Homeworks/DN_IDC_2024B_Ex03/NewGarage",
+      "program": "/Users/bar.az/Library/Mobile Documents/com~apple~CloudDocs/IDC📚/Year C/Semester B/C#/Homeworks/DN_IDC_2024B_Ex03/NewGarage/build/Debug/outDebug"
+    }
+  ]
+}

@@ -30,17 +30,18 @@ public abstract class Vehicle
         }
     }
 
-    // public override bool Equals(object obj)
-    // {
-    //     bool isEqual = false;
-    //     Vehicle vehicle = obj as Vehicle;
-    //     if (vehicle != null)
-    //     {
-    //         isEqual = LicensePlateNumber == vehicle.LicensePlateNumber;
-    //     }
+    // Equals
+    public override bool Equals(object obj)
+    {
+        bool isEqual = false;
+        Vehicle vehicle = obj as Vehicle;
+        if (vehicle != null)
+        {
+            isEqual = LicensePlateNumber == vehicle.LicensePlateNumber;
+        }
 
-    //     return isEqual;   
-    // }
+        return isEqual;
+    }
 
     public enum eVehicleStatus
     {
