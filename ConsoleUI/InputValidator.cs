@@ -1,6 +1,6 @@
 class InputValidator
 {
-    public static int getUserSelectionFromMenu(int i_MinValue, int i_MaxValue)
+    public static int GetUserSelectionFromMenu(int i_MinValue, int i_MaxValue)
     {
         bool isValidType = false;
         int userSelection = 0;
@@ -44,7 +44,6 @@ class InputValidator
 
     public static string GetDetailsAboutVehicle(string i_DetailsType)
     {
-        // Console.Clear();
         System.Console.WriteLine("Please enter the vehicle's " + i_DetailsType + ": ");
         string userInput = Console.ReadLine();
         if (userInput.Length == 0)
@@ -59,7 +58,7 @@ class InputValidator
 
     public static bool IsCarryingDangerousMaterials()
     { 
-        System.Console.WriteLine("Is the vehicle carrying dangerous materials? (0-False / 1-True) ");
+        System.Console.WriteLine("Is the vehicle carrying dangerous materials? (0-False / 1-True)");
         int userInput = int.Parse(Console.ReadLine());
         return userInput == 1;
     }
@@ -68,6 +67,7 @@ class InputValidator
     {
         bool isValidEnergy = false;
         float energyToAdd = 0;
+
         while (!isValidEnergy)
         {
             try
@@ -76,13 +76,13 @@ class InputValidator
                 energyToAdd = float.Parse(Console.ReadLine());
                 isValidEnergy = true;
             }
-
             catch (FormatException ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
         }
+        
         return energyToAdd;
     }
 }

@@ -20,19 +20,19 @@ public abstract class Vehicle
             Wheels[i] = new Wheel(i_MaxAirPressure);
         }
     }
-    public void setCurrentEnergy(float i_CurrentEnergy)
+    public void SetCurrentEnergy(float i_CurrentEnergy)
     {
         VehicleEngine.CurrentEnergy = i_CurrentEnergy;
-        UpdateEnergyLeftPercentage();
+        updateEnergyLeftPercentage();
     }
 
-    private void UpdateEnergyLeftPercentage()
+    private void updateEnergyLeftPercentage()
     {
         EnergyLeftPercentage = (VehicleEngine.CurrentEnergy / VehicleEngine.MaxEnergy) * 100;
     }
     
 
-    public void InflateWheelsToMax() // MAYBE MOVE TO WHEELS CLASS
+    public void InflateWheelsToMax()
     {
         foreach (Wheel wheel in Wheels)
         {
@@ -40,42 +40,30 @@ public abstract class Vehicle
         }
     }
 
-    public void Charge(float i_Amount, Enums.eGasType i_GasType)
+    public void Charge(float i_AmountToCharge, Enums.eGasType i_GasType)
     {
         if (VehicleEngine is GasEngine gasEngine)
         {
-            gasEngine.Fuel(i_Amount, i_GasType);
-            UpdateEnergyLeftPercentage();
+            gasEngine.Fuel(i_AmountToCharge, i_GasType);
+            updateEnergyLeftPercentage();
         }
         else
         {
             throw new ArgumentException("Invalid engine type");
         }
-
     }
 
-    public void Charge(float i_Amount)
+    public void Charge(float i_AmountToCharge)
     {
         if (VehicleEngine is ElectricEngine electricEngine)
         {
-            electricEngine.ChargeBattery(i_Amount);
-            UpdateEnergyLeftPercentage();
+            electricEngine.ChargeBattery(i_AmountToCharge);
+            updateEnergyLeftPercentage();
         }
         else
         {
             throw new ArgumentException("Invalid engine type");
         }
-    }
-        
-    public override bool Equals(object obj)
-    {
-        bool isEqual = false;
-        if (obj is Vehicle vehicle)
-        {
-            isEqual = LicensePlateNumber.Equals(vehicle.LicensePlateNumber);
-        }
-
-        return isEqual;
     }
 
     public override string ToString()

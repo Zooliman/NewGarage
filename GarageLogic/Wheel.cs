@@ -1,15 +1,13 @@
 public class Wheel
     {
-        public float MaxAirPressure { get; set; }
-
         private float m_CurrentAirPressure;
+        public float MaxAirPressure { get; set; }
+        public string ManufacturerName { get; set; }
 
         public Wheel(float i_MaxAirPressure)
         {
             MaxAirPressure = i_MaxAirPressure;
         }
-    
-        public string ManufacturerName { get; set; }
         public float CurrentAirPressure
         {
             get { return m_CurrentAirPressure; }

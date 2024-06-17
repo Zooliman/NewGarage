@@ -4,16 +4,17 @@ public class Motorcycle : Vehicle
     {
         public Enums.eLicenseType LicenseType { get; set; }
         public float EngineVolume { get; set; }
-        public const int m_NumOfWheels = 2;
+        public const int k_NumOfWheels = 2;
         public const int k_MaxAirPressure = 33;
 
-        public Motorcycle(Enums.eEngineType i_EngineType) : base(m_NumOfWheels, k_MaxAirPressure)
+        public Motorcycle(Enums.eEngineType i_EngineType) : base(k_NumOfWheels, k_MaxAirPressure)
         {
-            Wheels = new Wheel[m_NumOfWheels];
-            for (int i = 0; i < m_NumOfWheels; i++)
+            Wheels = new Wheel[k_NumOfWheels];
+            for (int i = 0; i < k_NumOfWheels; i++)
             {
                 Wheels[i] = new Wheel(k_MaxAirPressure);
             }
+
             if (i_EngineType == Enums.eEngineType.Gas)
             {
                 GasEngine engine = new GasEngine();
@@ -31,7 +32,6 @@ public class Motorcycle : Vehicle
             }
         }
 
-        // Motorcycle
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();

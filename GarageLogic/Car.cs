@@ -2,6 +2,8 @@ using System.Text;
 
 public class Car : Vehicle
     {
+        public const int k_MinNumberOfDoors = 2;
+        public const int k_MaxNumOfDoors = 5;
         public Enums.eNumOfDoors NumOfDoors { get; set; }
         public Enums.eCarColors CarColor { get; set; }
 

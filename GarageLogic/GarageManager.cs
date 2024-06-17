@@ -2,9 +2,9 @@ public class GarageManager
 {
     public List<Vehicle> m_VehiclesInGarage = new List<Vehicle>();
 
-    public void AddVehicleToGarage(Vehicle vehicle)
+    public void AddVehicleToGarage(Vehicle i_NewVehicle)
     {
-        m_VehiclesInGarage.Add(vehicle);
+        m_VehiclesInGarage.Add(i_NewVehicle);
     }
 
     public bool IsVehicleInGarage(string i_LicensePlateNumber)
@@ -44,6 +44,7 @@ public class GarageManager
     public Vehicle CreateVehicleInstance(string i_LicensePlate, int i_VehicleType)
     {
         Vehicle newVehicle;
+        
         switch ((Enums.eVehicleType)i_VehicleType)
         {
             case Enums.eVehicleType.GasCar:
@@ -64,7 +65,6 @@ public class GarageManager
             default:
                 throw new ValueOutOfRangeException(1, 5);
         }
-
         newVehicle.LicensePlateNumber = i_LicensePlate;
         
         return newVehicle;

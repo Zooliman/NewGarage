@@ -1,6 +1,5 @@
 public class ElectricEngine : Engine
     {
-
         public void ChargeBattery(float i_AmountToCharge)
         {
             if (CurrentEnergy + i_AmountToCharge <= MaxEnergy)

@@ -2,8 +2,8 @@
 public class ValueOutOfRangeException : Exception
 {    
     private string m_Message;
-    private float m_MaxValue;
-    private float m_MinValue;
+    private readonly float m_MaxValue;
+    private readonly float m_MinValue;
 
     public ValueOutOfRangeException(float i_MinValue, float i_MaxValue)
     {
