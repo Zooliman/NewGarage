@@ -1,3 +1,5 @@
+using System.Text;
+
 public class Motorcycle : Vehicle
     {
         public Enums.eLicenseType LicenseType { get; set; }
@@ -27,8 +29,16 @@ public class Motorcycle : Vehicle
                 VehicleType = Enums.eVehicleType.ElectricMotorcycle;
                 VehicleEngine = engine;
             }
+        }
 
-
+        // Motorcycle
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(base.ToString());
+            stringBuilder.AppendLine(string.Format("License type: {0}\nEngine volume: {1}", LicenseType, EngineVolume));
+            stringBuilder.AppendLine(VehicleEngine.ToString());
+            return stringBuilder.ToString();
         }
 
     }

@@ -1,3 +1,5 @@
+using System.Text;
+
 public class Car : Vehicle
     {
         public Enums.eNumOfDoors NumOfDoors { get; set; }
@@ -24,6 +26,15 @@ public class Car : Vehicle
                 VehicleEngine = engine;
             }
 
+        }
+
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(base.ToString());
+            stringBuilder.AppendLine(string.Format("Number of doors: {0}\nCar color: {1}", NumOfDoors, CarColor));
+            stringBuilder.AppendLine(VehicleEngine.ToString());
+            return stringBuilder.ToString();
         }
     
     }

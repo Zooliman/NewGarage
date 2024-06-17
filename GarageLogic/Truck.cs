@@ -1,3 +1,5 @@
+using System.Text;
+
 public class Truck : Vehicle
     {
         public bool IsCarryingDangerousMaterials { get; set; }
@@ -16,5 +18,13 @@ public class Truck : Vehicle
             VehicleEngine = engine;
         }
 
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(base.ToString());
+            stringBuilder.AppendLine(string.Format("Is carrying dangerous materials: {0}\nCargo volume: {1}", IsCarryingDangerousMaterials, CargoVolume));
+            stringBuilder.AppendLine(VehicleEngine.ToString());
+            return stringBuilder.ToString();
+        }
 
     }

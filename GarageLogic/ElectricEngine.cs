@@ -12,4 +12,9 @@ public class ElectricEngine : Engine
                 throw new ValueOutOfRangeException(0, MaxEnergy - CurrentEnergy);
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("Current Energy: {0}/{1} hours", CurrentEnergy, MaxEnergy);
+        }
     }

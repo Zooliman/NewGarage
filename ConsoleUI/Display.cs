@@ -1,10 +1,9 @@
-public class Display
+public class ConsoleDisplay
    {
-        public static void DisplayMainMenu()
+        public static void MainMenu()
         {
             Console.Clear();
             Console.WriteLine(
-
 @"####################################################
 Hello and welcome to the garage!
 ####################################################
@@ -22,33 +21,30 @@ Choose an action from the following list:
 ");
         }
 
-        public static void DisplayVehicleOptions()
+        public static void VehicleTypeOptions()
         {
-
-            // Console.Clear();
             Console.WriteLine(
-        @"Enter the vehicle type:
+@"Enter the vehicle type:
 (1) - Gas car 
 (2) - Electric car 
-(3) - Motorcycle on gas
+(3) - Gas Motorcycle
 (4) - Electric Motorcycle
 (5) - Truck");
-
         }
-        public static void DisplayFilterOptions()
+
+        public static void FilterStatusOptions()
         {
-            // Console.Clear();
             Console.WriteLine(
 @"Choose which license plates do you want to see:
-(1) - All vehicles
-(2) - InFix vehicles 
-(3) - Fixed vehicles
-(4) - Paid vehicles
+(1) - InFix vehicles 
+(2) - Fixed vehicles
+(3) - Paid vehicles
+(4) - All vehicles
 ");
         }
-        public static void DisplayVehicleStates()
+
+        public static void VehicleStates()
         {
-            // Console.Clear();
             Console.WriteLine(
 @"Enter the new vehicle's state:  
 (1) - InFix 
@@ -57,20 +53,8 @@ Choose an action from the following list:
 ");
         }
 
-        public static void DisplayInflateOptions()
+        public static void GasTypes()
         {
-            // Console.Clear();
-            Console.WriteLine(
-@"Here you can inflate the vehicle's wheels to the Max air pressure:  
-(1) - Inflate to max
-(2) - return to the main menu
-");
-        }
-
-
-        public static void DisplayGasTypes()
-        {
-            // Console.Clear();
             Console.WriteLine(
 @"Choose one of the following gas types:  
 (1) - Soler

@@ -1,3 +1,5 @@
+using System.Text;
+
 public abstract class Vehicle
 {
     public float EnergyLeftPercentage { get; set; }
@@ -20,8 +22,13 @@ public abstract class Vehicle
     }
     public void setCurrentEnergy(float i_CurrentEnergy)
     {
-        this.VehicleEngine.CurrentEnergy = i_CurrentEnergy;
-        EnergyLeftPercentage = (this.VehicleEngine.CurrentEnergy / this.VehicleEngine.MaxEnergy) * 100;
+        VehicleEngine.CurrentEnergy = i_CurrentEnergy;
+        UpdateEnergyLeftPercentage();
+    }
+
+    private void UpdateEnergyLeftPercentage()
+    {
+        EnergyLeftPercentage = (VehicleEngine.CurrentEnergy / VehicleEngine.MaxEnergy) * 100;
     }
     
 
@@ -38,6 +45,7 @@ public abstract class Vehicle
         if (VehicleEngine is GasEngine gasEngine)
         {
             gasEngine.Fuel(i_Amount, i_GasType);
+            UpdateEnergyLeftPercentage();
         }
         else
         {
@@ -51,6 +59,7 @@ public abstract class Vehicle
         if (VehicleEngine is ElectricEngine electricEngine)
         {
             electricEngine.ChargeBattery(i_Amount);
+            UpdateEnergyLeftPercentage();
         }
         else
         {
@@ -58,8 +67,6 @@ public abstract class Vehicle
         }
     }
         
-
-    // Equals
     public override bool Equals(object obj)
     {
         bool isEqual = false;
@@ -71,11 +78,22 @@ public abstract class Vehicle
         return isEqual;
     }
 
-    // ToString
     public override string ToString()
     {
-        return string.Format(
-            "Model Name: {0}\nLicense Plate Number: {1}\nEnergy Left Precentage: {2}\nOwner Name: {3}\nOwner Phone Number: {4}\nVehicle Status: {5}\nVehicle Engine: {6}\nVehicle Type: {7}",
-            ModelName, LicensePlateNumber, EnergyLeftPercentage, OwnerName, OwnerPhoneNumber, VehicleStatus, VehicleEngine, VehicleType);
+        StringBuilder vehicleDetails = new StringBuilder();
+        vehicleDetails.AppendLine($"License Plate Number: {LicensePlateNumber}");
+        vehicleDetails.AppendLine($"Model Name: {ModelName}");
+        vehicleDetails.AppendLine($"Owner Name: {OwnerName}");
+        vehicleDetails.AppendLine($"Owner Phone Number: {OwnerPhoneNumber}");
+        vehicleDetails.AppendLine($"Condition in the Garage: {VehicleStatus}");
+        vehicleDetails.AppendLine($"Energy Left Percentage: {EnergyLeftPercentage}%");
+        vehicleDetails.AppendLine($"Vehicle Type: {VehicleType}");
+        vehicleDetails.AppendLine("Wheels Details:");
+        foreach (Wheel wheel in Wheels)
+        {
+            vehicleDetails.AppendLine($"\tManufacturer: {wheel.ManufacturerName}, Air Pressure: {wheel.CurrentAirPressure}/{wheel.MaxAirPressure}");
+        }
+
+        return vehicleDetails.ToString();
     }
 }

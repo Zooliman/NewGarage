@@ -40,4 +40,33 @@ public class GarageManager
 
         return vehicle;
     }
+
+    public Vehicle CreateVehicleInstance(string i_LicensePlate, int i_VehicleType)
+    {
+        Vehicle newVehicle;
+        switch ((Enums.eVehicleType)i_VehicleType)
+        {
+            case Enums.eVehicleType.GasCar:
+                newVehicle = new Car(Enums.eEngineType.Gas);
+                break;
+            case Enums.eVehicleType.ElectricCar:
+                newVehicle = new Car(Enums.eEngineType.Electric);
+                break;
+            case Enums.eVehicleType.GasMotorcycle:
+                newVehicle = new Motorcycle(Enums.eEngineType.Gas);
+                break;
+            case Enums.eVehicleType.ElectricMotorcycle:
+                newVehicle = new Motorcycle(Enums.eEngineType.Electric);
+                break;
+            case Enums.eVehicleType.Truck:
+                newVehicle = new Truck();
+                break;
+            default:
+                throw new ValueOutOfRangeException(1, 5);
+        }
+
+        newVehicle.LicensePlateNumber = i_LicensePlate;
+        
+        return newVehicle;
+    }
 }

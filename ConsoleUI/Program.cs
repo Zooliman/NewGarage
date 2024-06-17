@@ -1,4 +1,6 @@
-﻿public class Program
+﻿using System.Net;
+
+public class Program
 {
     private static GarageManager s_GarageManager = new GarageManager();
 
@@ -17,7 +19,7 @@
 
         while (!isUserQuitted)
         {
-            Display.DisplayMainMenu();
+            ConsoleDisplay.MainMenu();
             try
             {
                 int userChoiceFromMenu = InputValidator.getUserSelectionFromMenu(1, 8);
@@ -29,7 +31,7 @@
                         Console.WriteLine("Vehicle was successfully inserted to the garage.");
                         break;
                     case 2:
-                        Display.DisplayFilterOptions();
+                        ConsoleDisplay.FilterStatusOptions();
                         FilterCurrentLicensePlates();
                         break;
                     case 3:
@@ -56,14 +58,13 @@
                         Console.WriteLine("Bye bye!");
                         break;
                     default:
-                        System.Threading.Thread.Sleep(2000);
                         break;
                 }
 
-                if(!isUserQuitted)
-                {
-                    returnToMainMenu();
-                }
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             catch (FormatException ex)
             {
@@ -72,6 +73,13 @@
             catch (ValueOutOfRangeException ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if(!isUserQuitted)
+                {
+                    returnToMainMenu();
+                }
             }
         }
     }
@@ -86,7 +94,7 @@
     {
         string licensePlate = GetExistingVehicleLicensePlate();
         Vehicle vehicle = s_GarageManager.FindVehicleByLicensePlate(licensePlate);
-        Console.WriteLine(vehicle);
+        Console.WriteLine(vehicle.ToString());
     }
 
     private static void InsertNewVehicle()
@@ -130,78 +138,56 @@
     }
 
     private static Vehicle CreateNewVehicle(string licensePlate)
-                {
-                    Console.WriteLine("Vehicle is new!");
-                    Display.DisplayVehicleOptions();
+    {
+        ConsoleDisplay.VehicleTypeOptions();
 
-                    int vehicleType = InputValidator.getUserSelectionFromMenu(1, 5); // User selects the vehicle type
-        Vehicle newVehicle;
+        int vehicleType = InputValidator.getUserSelectionFromMenu(1, 5); // User selects the vehicle type
+        Vehicle newVehicle = s_GarageManager.CreateVehicleInstance(licensePlate, vehicleType);
 
-                    switch ((Enums.eVehicleType)vehicleType)
-                    {
-                        case Enums.eVehicleType.GasCar:
-                            newVehicle = new Car(Enums.eEngineType.Gas);
-                            break;
-                        case Enums.eVehicleType.ElectricCar:
-                            newVehicle = new Car(Enums.eEngineType.Electric);
-                            break;
-                        case Enums.eVehicleType.GasMotorcycle:
-                            newVehicle = new Motorcycle(Enums.eEngineType.Gas);
-                            break;
-                        case Enums.eVehicleType.ElectricMotorcycle:
-                            newVehicle = new Motorcycle(Enums.eEngineType.Electric);
-                            break;
-                        case Enums.eVehicleType.Truck:
-                            newVehicle = new Truck();
-                            break;
-                        default:
-                            throw new ValueOutOfRangeException(1, 5);
-                    }
+        string vehicleModelName = InputValidator.GetDetailsAboutVehicle("Model Name");
+        newVehicle.ModelName = vehicleModelName;
 
-                    string vehicleModelName = InputValidator.GetDetailsAboutVehicle("Model Name");
-                    newVehicle.ModelName = vehicleModelName;
+        string ownerName = InputValidator.GetDetailsAboutVehicle("Owner Name");
+        newVehicle.OwnerName = ownerName;
 
-                    string ownerName = InputValidator.GetDetailsAboutVehicle("Owner Name");
-                    newVehicle.OwnerName = ownerName;
+        string ownerPhoneNumber = InputValidator.GetDetailsAboutVehicle("Owner Phone Number");
+        newVehicle.OwnerPhoneNumber = ownerPhoneNumber;
 
-                    string ownerPhoneNumber = InputValidator.GetDetailsAboutVehicle("Owner Phone Number");
-                    newVehicle.OwnerPhoneNumber = ownerPhoneNumber;
+        string vehicleCurrentEnergy = InputValidator.GetDetailsAboutVehicle("Current Energy");
+        newVehicle.setCurrentEnergy(float.Parse(vehicleCurrentEnergy));
 
-                    string vehicleCurrentEnergy = InputValidator.GetDetailsAboutVehicle("Current Energy");
-                    newVehicle.setCurrentEnergy(float.Parse(vehicleCurrentEnergy));
-
-                    string vehicleWheelsManufacturer = InputValidator.GetDetailsAboutVehicle("Wheels Manufacturer");
-                    string vehicleCurrentAirPressure = InputValidator.GetDetailsAboutVehicle("Air Pressure");
-                    initializeVehicleWheels(newVehicle, vehicleWheelsManufacturer, vehicleCurrentAirPressure);
+        string vehicleWheelsManufacturer = InputValidator.GetDetailsAboutVehicle("Wheels Manufacturer");
+        string vehicleCurrentAirPressure = InputValidator.GetDetailsAboutVehicle("Air Pressure");
+        initializeVehicleWheels(newVehicle, vehicleWheelsManufacturer, vehicleCurrentAirPressure);
 
         if (newVehicle is Car car)
-                    {
-                        string vehicleColor = InputValidator.GetDetailsAboutVehicle("Color");
+        {
+            string vehicleColor = InputValidator.GetDetailsAboutVehicle("Color");
+
             car.CarColor = (Enums.eCarColors)Enum.Parse(typeof(Enums.eCarColors), vehicleColor);
 
-                        string vehicleNumOfDoors = InputValidator.GetDetailsAboutVehicle("Number of doors");
+            string vehicleNumOfDoors = InputValidator.GetDetailsAboutVehicle("Number of doors");
             car.NumOfDoors = (Enums.eNumOfDoors)Enum.Parse(typeof(Enums.eNumOfDoors), vehicleNumOfDoors);
-                    }
+        }
         else if (newVehicle is Motorcycle motorcycle)
-                    {
-                        string vehicleLicenseType = InputValidator.GetDetailsAboutVehicle("License Type");
+        {
+            string vehicleLicenseType = InputValidator.GetDetailsAboutVehicle("License Type");
             motorcycle.LicenseType = (Enums.eLicenseType)Enum.Parse(typeof(Enums.eLicenseType), vehicleLicenseType);
 
-                        string vehicleEngineVolume = InputValidator.GetDetailsAboutVehicle("Engine Volume");
+            string vehicleEngineVolume = InputValidator.GetDetailsAboutVehicle("Engine Volume");
             motorcycle.EngineVolume = float.Parse(vehicleEngineVolume);
-                    }
+        }
         else if (newVehicle is Truck truck)
-                    {
-                        string vehicleCarryingCapacity = InputValidator.GetDetailsAboutVehicle("Carrying Capacity");
+        {
+            string vehicleCarryingCapacity = InputValidator.GetDetailsAboutVehicle("Carrying Capacity");
             truck.CargoVolume = float.Parse(vehicleCarryingCapacity);
 
-                        bool isCarryingDangerousMaterials = InputValidator.IsCarryingDangerousMaterials();
+            bool isCarryingDangerousMaterials = InputValidator.IsCarryingDangerousMaterials();
             truck.IsCarryingDangerousMaterials = isCarryingDangerousMaterials;
-                    }
+        }
 
-                    newVehicle.LicensePlateNumber = licensePlate;
-        return newVehicle;
-    }
+    return newVehicle;
+}
 
         private static void initializeVehicleWheels(Vehicle i_NewVehicle, string i_VehicleWheelsManufacturer, string vehicleCurrentAirPressure)
         {
@@ -215,12 +201,12 @@
 
         private static void FilterCurrentLicensePlates()
         {
-            Enums.eVehicleStatus status = Enums.eVehicleStatus.InFix;
+            Enums.eVehicleStatus chosenStatus;
             List<string> licensePlateNumbers = new List<string>();
 
             int filterOption = InputValidator.getUserSelectionFromMenu(1, 4);
 
-        if (filterOption == 1) // display all the vehicles in the garage
+            if (filterOption == 4) // display all the vehicles in the garage
             {
                 foreach (Vehicle vehicle in s_GarageManager.m_VehiclesInGarage)
                 {
@@ -229,9 +215,9 @@
             }
             else
             {
-            status = (Enums.eVehicleStatus)(filterOption - 1);
+                chosenStatus = (Enums.eVehicleStatus)(filterOption - 1);
 
-                List<Vehicle> filteredLicensePlates = s_GarageManager.m_VehiclesInGarage.Where(vehicle => vehicle.VehicleStatus == status).ToList();
+                List<Vehicle> filteredLicensePlates = s_GarageManager.m_VehiclesInGarage.Where(vehicle => vehicle.VehicleStatus == chosenStatus).ToList();
                 foreach (Vehicle vehicle in filteredLicensePlates)
                 {
                     licensePlateNumbers.Add(vehicle.LicensePlateNumber);
@@ -240,7 +226,7 @@
 
             if (licensePlateNumbers.Count == 0)
             {
-                Console.WriteLine("There are no {0} vehicles in the garage right now.", status);
+                Console.WriteLine("There are no {0} vehicles in the garage right now.", (Enums.eVehicleStatus)(filterOption - 1));
             }
             else
             {
@@ -255,11 +241,18 @@
         private static void ChangeVehicleState()
         {
             string licensePlate = GetExistingVehicleLicensePlate();
-            Display.DisplayVehicleStates();
+            ConsoleDisplay.VehicleStates();
             int vehicleState = InputValidator.getUserSelectionFromMenu(1, 3);
-
-        Enums.eVehicleStatus status = (Enums.eVehicleStatus)(vehicleState - 1);
-            s_GarageManager.FindVehicleByLicensePlate(licensePlate).VehicleStatus = status;
+            Enums.eVehicleStatus status = (Enums.eVehicleStatus)(vehicleState - 1);
+            Enums.eVehicleStatus currentStatus = s_GarageManager.FindVehicleByLicensePlate(licensePlate).VehicleStatus;
+            if (status == currentStatus)
+            {
+                throw new ArgumentException("Vehicle is already in this status.");
+            }
+            else
+            {
+                s_GarageManager.FindVehicleByLicensePlate(licensePlate).VehicleStatus = status;
+            }
         }
 
         private static void InflateVehicleWheels()
@@ -276,8 +269,8 @@
             {
                 try
                 {
-                string licensePlate = GetExistingVehicleLicensePlate();
-                    isFueled = isValidGasType(licensePlate);
+                    string licensePlate = GetExistingVehicleLicensePlate();
+                    isFueled = tryFueling(licensePlate);
                 }
                 catch (ArgumentException ex)
                 {
@@ -286,14 +279,14 @@
             }
         }
 
-        private static bool isValidGasType(string i_LicensePlate)
+        private static bool tryFueling(string i_LicensePlate)
         {
             bool isValidGas = false;
             try
             {
-                Display.DisplayGasTypes();
+                ConsoleDisplay.GasTypes();
                 int chosenGasType = InputValidator.getUserSelectionFromMenu(1, 4);
-            Enums.eGasType gasType = (Enums.eGasType)(chosenGasType - 1);
+                Enums.eGasType gasType = (Enums.eGasType)(chosenGasType - 1);
 
                 float gasAmountToAdd = InputValidator.GetEnergyAmountToAdd();
 
