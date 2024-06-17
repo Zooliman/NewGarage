@@ -1,6 +1,7 @@
 public class Car : Vehicle
     {
         public Enums.eNumOfDoors NumOfDoors { get; set; }
+        public Enums.eCarColors CarColor { get; set; }
 
         public const int k_NumOfWheels = 5;
         public const int k_MaxAirPressure = 31;
@@ -15,7 +16,7 @@ public class Car : Vehicle
                 VehicleType = Enums.eVehicleType.GasCar;
                 VehicleEngine = engine;
             }
-            else
+            else if (i_EngineType == Enums.eEngineType.Electric)
             {
                 ElectricEngine engine = new ElectricEngine();
                 engine.MaxEnergy = 3.5f;
@@ -24,15 +25,5 @@ public class Car : Vehicle
             }
 
         }
-        public Enums.eCarColors CarColors
-        {
-            get
-            {
-                return CarColors;
-            }
-            set
-            {
-                CarColors = value;
-            }
-        }
+    
     }

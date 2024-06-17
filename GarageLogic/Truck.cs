@@ -13,6 +13,7 @@ public class Truck : Vehicle
             engine.MaxEnergy = 120;
             VehicleType = Enums.eVehicleType.Truck;
             engine.GasType = Enums.eGasType.Soler;
+            VehicleEngine = engine;
         }
 
 

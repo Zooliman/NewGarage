@@ -25,7 +25,7 @@ Choose an action from the following list:
         public static void DisplayVehicleOptions()
         {
 
-            Console.Clear();
+            // Console.Clear();
             Console.WriteLine(
         @"Enter the vehicle type:
 (1) - Gas car 
@@ -37,7 +37,7 @@ Choose an action from the following list:
         }
         public static void DisplayFilterOptions()
         {
-            Console.Clear();
+            // Console.Clear();
             Console.WriteLine(
 @"Choose which license plates do you want to see:
 (1) - All vehicles
@@ -48,7 +48,7 @@ Choose an action from the following list:
         }
         public static void DisplayVehicleStates()
         {
-            Console.Clear();
+            // Console.Clear();
             Console.WriteLine(
 @"Enter the new vehicle's state:  
 (1) - InFix 
@@ -59,7 +59,7 @@ Choose an action from the following list:
 
         public static void DisplayInflateOptions()
         {
-            Console.Clear();
+            // Console.Clear();
             Console.WriteLine(
 @"Here you can inflate the vehicle's wheels to the Max air pressure:  
 (1) - Inflate to max
@@ -70,7 +70,7 @@ Choose an action from the following list:
 
         public static void DisplayGasTypes()
         {
-            Console.Clear();
+            // Console.Clear();
             Console.WriteLine(
 @"Choose one of the following gas types:  
 (1) - Soler

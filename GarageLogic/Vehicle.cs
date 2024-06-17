@@ -1,8 +1,8 @@
 public abstract class Vehicle
 {
+    public float EnergyLeftPercentage { get; set; }
     public string ModelName { get; set; }
     public string LicensePlateNumber { get; set; }
-    public float EnergyLeftPrecentage { get; set; }
     public Wheel[] Wheels { get; set; }
     public string OwnerName { get; set; }
     public string OwnerPhoneNumber { get; set; }
@@ -18,6 +18,12 @@ public abstract class Vehicle
             Wheels[i] = new Wheel(i_MaxAirPressure);
         }
     }
+    public void setCurrentEnergy(float i_CurrentEnergy)
+    {
+        this.VehicleEngine.CurrentEnergy = i_CurrentEnergy;
+        EnergyLeftPercentage = (this.VehicleEngine.CurrentEnergy / this.VehicleEngine.MaxEnergy) * 100;
+    }
+    
 
     public void InflateWheelsToMax() // MAYBE MOVE TO WHEELS CLASS
     {
@@ -70,6 +76,6 @@ public abstract class Vehicle
     {
         return string.Format(
             "Model Name: {0}\nLicense Plate Number: {1}\nEnergy Left Precentage: {2}\nOwner Name: {3}\nOwner Phone Number: {4}\nVehicle Status: {5}\nVehicle Engine: {6}\nVehicle Type: {7}",
-            ModelName, LicensePlateNumber, EnergyLeftPrecentage, OwnerName, OwnerPhoneNumber, VehicleStatus, VehicleEngine, VehicleType);
+            ModelName, LicensePlateNumber, EnergyLeftPercentage, OwnerName, OwnerPhoneNumber, VehicleStatus, VehicleEngine, VehicleType);
     }
 }

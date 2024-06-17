@@ -6,6 +6,7 @@ public class Enums
         Fixed,
         Paid
     }
+
     public enum eEngineType
     {
         Gas,
@@ -15,10 +16,10 @@ public class Enums
     public enum eVehicleType
     {
         GasCar = 1,
-        ElectricCar = 2,
-        GasMotorcycle = 3,
-        ElectricMotorcycle = 4,
-        Truck = 5
+        ElectricCar,
+        GasMotorcycle,
+        ElectricMotorcycle,
+        Truck
     }
 
     public enum eCarColors
@@ -28,6 +29,7 @@ public class Enums
         Red,
         Black
     }
+
     public enum eNumOfDoors
     {
         Two,
